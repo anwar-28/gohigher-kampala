@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { AppShell } from "@/components/layout/AppShell";
 import { getHotspots, Hotspot } from "@/lib/services";
+import { HotspotsMap } from "@/components/charts/HotspotsMap";
 import { Card, PageHeader, Skeleton } from "@/components/ui";
 import { MapPin, Flame, AlertTriangle, TrendingUp } from "lucide-react";
 
@@ -145,48 +146,9 @@ export default function HotspotsPage() {
           ))}
         </div>
 
-        {/* Map placeholder */}
+        {/* Interactive Google Map */}
         <Card className="mb-8 overflow-hidden">
-          <div className="h-56 bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center relative">
-            <div
-              className="absolute inset-0 opacity-20"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle, #2563EB 1px, transparent 1px)",
-                backgroundSize: "32px 32px",
-              }}
-            />
-            <div className="relative z-10 text-center">
-              <MapPin className="w-10 h-10 text-blue-600 mx-auto mb-2" />
-              <p
-                className="font-semibold text-blue-700"
-                style={{ fontFamily: "Inter, sans-serif" }}
-              >
-                Interactive Map
-              </p>
-              <p className="text-sm text-blue-500">
-                Integrate Google Maps or Mapbox for live hotspot mapping
-              </p>
-            </div>
-            {/* Mock pins */}
-            {[
-              { top: "30%", left: "25%", size: 5 },
-              { top: "45%", left: "55%", size: 4 },
-              { top: "60%", left: "35%", size: 3 },
-              { top: "25%", left: "70%", size: 4 },
-            ].map((pin, i) => (
-              <div
-                key={i}
-                className="absolute"
-                style={{ top: pin.top, left: pin.left }}
-              >
-                <div
-                  className={`w-${pin.size} h-${pin.size} bg-red-500 rounded-full animate-pulse-soft`}
-                  style={{ width: pin.size * 6, height: pin.size * 6 }}
-                />
-              </div>
-            ))}
-          </div>
+          <HotspotsMap hotspots={hotspots} loading={loading} />
         </Card>
 
         {/* Hotspot list */}
