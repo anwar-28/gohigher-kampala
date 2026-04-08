@@ -70,37 +70,44 @@ export default function DashboardPage() {
   return (
     <AppShell>
       <div className="animate-in">
-        {/* Custom header with profile image */}
-        <div className="flex items-center gap-4 mb-8">
-          <Avatar
-            src={
-              user?.profile_picture
-                ? getImageUrl(user.profile_picture)
-                : undefined
-            }
-            name={user?.name || "User"}
-            size="lg"
-          />
-          <div>
-            <h1
-              className="text-2xl font-bold text-slate-900"
-              style={{ fontFamily: "Inter, sans-serif" }}
-            >
-              Good day, {user?.name?.split(" ")[0]} 👋
-            </h1>
-            <p className="text-slate-500 text-sm mt-1">
-              Here's what's happening in your GoHigher account
-            </p>
+        {/* Custom header with profile image and theme*/}
+        <div className="mb-8 space-y-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <Avatar
+              src={
+                user?.profile_picture
+                  ? getImageUrl(user.profile_picture)
+                  : undefined
+              }
+              name={user?.name || "User"}
+              size="lg"
+            />
+            <div className="flex-1">
+              <h1
+                className="text-2xl sm:text-3xl font-bold text-slate-900"
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
+                Good day, {user?.name?.split(" ")[0]} 👋
+              </h1>
+              <p className="text-slate-500 text-sm mt-1">
+                Here's what's happening in your GoHigher account
+              </p>
+            </div>
           </div>
-          <div>
-            <h1
-              className="text-2xl font-bold text-slate-900"
+
+          {/* Theme of the year section */}
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-2xl p-4 sm:p-5">
+            <h2
+              className="text-lg sm:text-xl font-bold text-slate-900 mb-2 leading-snug"
               style={{ fontFamily: "Inter, sans-serif" }}
             >
-              THEME OF THE YEAR: PLASTIC WASTE MANAGEMENT IN KAMPALA, UGANDA
-            </h1>
-            <p className="text-slate-500 text-sm mt-1">
-              App made by: Youth With A Purpose Club KMSS{" "}
+              THEME OF THE YEAR
+            </h2>
+            <p className="text-slate-700 font-semibold text-sm sm:text-base mb-3">
+              INNOVATION, SELF-DISCIPLINE AND DETERMINATION
+            </p>
+            <p className="text-slate-600 text-xs sm:text-sm">
+              🎓 App made by: Youth With A Purpose Club KMSS
             </p>
           </div>
         </div>

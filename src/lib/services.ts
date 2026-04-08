@@ -9,6 +9,7 @@ export interface GarbageRequest {
   user_id: string;
   waste_type: string;
   date: string;
+  location: string;
   status: "pending" | "scheduled" | "completed";
   $createdAt: string;
 }
@@ -17,6 +18,7 @@ export async function createGarbageRequest(
   userId: string,
   wasteType: string,
   date: string,
+  location: string,
 ) {
   return await databases.createDocument(
     DB_ID,
@@ -26,6 +28,7 @@ export async function createGarbageRequest(
       user_id: userId,
       waste_type: wasteType,
       date,
+      location,
       status: "pending",
     },
   );
@@ -291,4 +294,109 @@ export async function respondToMessage(id: string, response: string) {
   return await databases.updateDocument(DB_ID, COLLECTIONS.MESSAGES, id, {
     response,
   });
+}
+
+// ─── POSTS ─────────────────────────────────────────────────────────────────────
+
+export interface Post {
+  $id: string;
+  author_id: string;
+  author_name?: string;
+  author_avatar?: string;
+  text?: string;
+  image?: string;
+  likes: number;
+  liked_by?: string;
+  $createdAt: string;
+}
+
+export async function createPost(
+  authorId: string,
+  text: string | undefined,
+  imageFile: File | undefined,
+  authorName?: string,
+  authorAvatar?: string,
+) {
+  let imageId: string | undefined;
+  if (imageFile) {
+    const uploaded = await storage.createFile(
+      STORAGE_ID,
+      ID.unique(),
+      imageFile,
+    );
+    imageId = uploaded.$id;
+  }
+
+  if (!text && !imageId) {
+    throw new Error("Post must have either text or image");
+  }
+
+  return await databases.createDocument(DB_ID, COLLECTIONS.POSTS, ID.unique(), {
+    author_id: authorId,
+    author_name: authorName,
+    author_avatar: authorAvatar,
+    text: text || "",
+    image: imageId,
+    likes: 0,
+    liked_by: JSON.stringify([]),
+  });
+}
+
+export async function getPosts() {
+  const res = await databases.listDocuments(DB_ID, COLLECTIONS.POSTS, [
+    Query.orderDesc("$createdAt"),
+    Query.limit(50),
+  ]);
+
+  const posts = res.documents as unknown as Post[];
+
+  // Enrich posts with author profile data
+  const enrichedPosts = await Promise.all(
+    posts.map(async (post) => {
+      try {
+        const profile = await getUserProfile(post.author_id);
+        return {
+          ...post,
+          author_name: profile?.name || post.author_name,
+          author_avatar: profile?.profile_picture || post.author_avatar,
+        };
+      } catch {
+        return post;
+      }
+    }),
+  );
+
+  return enrichedPosts;
+}
+
+export async function likePost(postId: string, userId: string) {
+  const post = await databases.getDocument(DB_ID, COLLECTIONS.POSTS, postId);
+  const likedBy = JSON.parse((post.liked_by as string) || "[]") as string[];
+
+  if (!likedBy.includes(userId)) {
+    likedBy.push(userId);
+    return await databases.updateDocument(DB_ID, COLLECTIONS.POSTS, postId, {
+      likes: (post.likes as number) + 1,
+      liked_by: JSON.stringify(likedBy),
+    });
+  }
+  return post;
+}
+
+export async function unlikePost(postId: string, userId: string) {
+  const post = await databases.getDocument(DB_ID, COLLECTIONS.POSTS, postId);
+  const likedBy = JSON.parse((post.liked_by as string) || "[]") as string[];
+  const filtered = likedBy.filter((id: string) => id !== userId);
+
+  if (filtered.length < likedBy.length) {
+    return await databases.updateDocument(DB_ID, COLLECTIONS.POSTS, postId, {
+      likes: Math.max((post.likes as number) - 1, 0),
+      liked_by: JSON.stringify(filtered),
+    });
+  }
+  return post;
+}
+
+export async function deletePost(id: string) {
+  return await databases.deleteDocument(DB_ID, COLLECTIONS.POSTS, id);
 }

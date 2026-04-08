@@ -280,10 +280,13 @@ export default function AdminPage() {
             <div className="space-y-3">
               {requests.map((req) => (
                 <Card key={req.$id} className="p-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
                       <p className="font-semibold text-slate-800 text-sm">
                         {req.waste_type}
+                      </p>
+                      <p className="text-xs text-slate-400 mt-2">
+                        📍 Location: {req.location}
                       </p>
                       <p className="text-xs text-slate-400 mt-1">
                         Requested: {new Date(req.date).toLocaleDateString()}

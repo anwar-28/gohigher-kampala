@@ -15,6 +15,7 @@ import {
   LogOut,
   Leaf,
   ChevronRight,
+  MessageSquare,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -24,6 +25,7 @@ const navItems = [
   { href: "/report", label: "Report Issue", icon: AlertTriangle },
   { href: "/requests", label: "Garbage Pickup", icon: Truck },
   { href: "/hotspots", label: "Hotspots", icon: MapPin },
+  { href: "/posts", label: "Company Feed", icon: MessageSquare },
   { href: "/marketplace", label: "Sustainability", icon: ShoppingBag },
   { href: "/education", label: "Education", icon: BookOpen },
   { href: "/ai", label: "AI Assistant", icon: Bot },

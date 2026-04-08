@@ -94,7 +94,21 @@ async function setup() {
         { key: "user_id", type: "string", size: 50, required: true },
         { key: "waste_type", type: "string", size: 100, required: true },
         { key: "date", type: "string", size: 30, required: true },
+        { key: "location", type: "string", size: 200, required: true },
         { key: "status", type: "string", size: 20, required: true },
+      ],
+    },
+    {
+      id: "posts",
+      name: "Posts",
+      attrs: [
+        { key: "author_id", type: "string", size: 50, required: true },
+        { key: "author_name", type: "string", size: 100, required: false },
+        { key: "author_avatar", type: "string", size: 100, required: false },
+        { key: "text", type: "string", size: 5000, required: false },
+        { key: "image", type: "string", size: 100, required: false },
+        { key: "likes", type: "integer", required: true, min: 0 },
+        { key: "liked_by", type: "string", size: 10000, required: false },
       ],
     },
     {

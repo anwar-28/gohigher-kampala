@@ -21,6 +21,7 @@ import {
   CheckCircle2,
   Clock,
   RefreshCw,
+  MapPin,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { formatDistanceToNow, format } from "date-fns";
@@ -42,13 +43,14 @@ export default function RequestsPage() {
   const { requests, loading, refresh } = useRequests(user?.$id);
   const [showForm, setShowForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({ waste_type: "", date: "" });
+  const [form, setForm] = useState({ waste_type: "", date: "", location: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
     const e: Record<string, string> = {};
     if (!form.waste_type) e.waste_type = "Please select a waste type";
     if (!form.date) e.date = "Please select a date";
+    if (!form.location) e.location = "Please enter your location";
     return e;
   };
 
@@ -62,9 +64,14 @@ export default function RequestsPage() {
     if (!user) return;
     setSubmitting(true);
     try {
-      await createGarbageRequest(user.$id, form.waste_type, form.date);
+      await createGarbageRequest(
+        user.$id,
+        form.waste_type,
+        form.date,
+        form.location,
+      );
       toast.success("Pickup request scheduled!");
-      setForm({ waste_type: "", date: "" });
+      setForm({ waste_type: "", date: "", location: "" });
       setShowForm(false);
       refresh();
     } catch (err: unknown) {
@@ -114,6 +121,15 @@ export default function RequestsPage() {
                 error={errors.waste_type}
               />
               <Input
+                label="Location"
+                type="text"
+                icon={<MapPin size={15} />}
+                placeholder="e.g., Kampala, Nakasero"
+                value={form.location}
+                onChange={(e) => setForm({ ...form, location: e.target.value })}
+                error={errors.location}
+              />
+              <Input
                 label="Preferred Pickup Date"
                 type="date"
                 icon={<CalendarDays size={15} />}
@@ -148,68 +164,78 @@ export default function RequestsPage() {
         ) : (
           <div className="space-y-4">
             {requests.map((req) => (
-              <Card key={req.$id} className="p-5">
+              <Card
+                key={req.$id}
+                className="p-6 border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300"
+              >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
-                      <Truck className="w-5 h-5 text-purple-600" />
+                  <div className="flex items-start gap-4 flex-1">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Truck className="w-6 h-6 text-purple-600" />
                     </div>
-                    <div>
-                      <p className="font-semibold text-slate-800 text-sm">
+                    <div className="flex-1">
+                      <p className="font-bold text-slate-900 text-base mb-1">
                         {req.waste_type}
                       </p>
-                      <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
-                        <CalendarDays size={11} />
-                        {format(new Date(req.date), "PPP")}
-                      </p>
+                      <div className="space-y-2">
+                        <p className="text-sm text-slate-600 flex items-center gap-2">
+                          <MapPin
+                            size={14}
+                            className="text-blue-500 flex-shrink-0"
+                          />
+                          {req.location}
+                        </p>
+                        <p className="text-sm text-slate-600 flex items-center gap-2">
+                          <CalendarDays
+                            size={14}
+                            className="text-green-500 flex-shrink-0"
+                          />
+                          {format(new Date(req.date), "PPP")}
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <StatusBadge status={req.status} />
                 </div>
 
                 {/* Status tracker */}
-                <div className="flex items-center gap-2">
-                  {statusSteps.map((step, i) => {
-                    const current = getStepIndex(req.status);
-                    const done = i <= current;
-                    return (
-                      <div
-                        key={step}
-                        className="flex items-center flex-1 last:flex-none"
-                      >
+                <div className="mt-5 pt-4 border-t border-slate-100">
+                  <div className="flex items-center gap-2">
+                    {statusSteps.map((step, i) => {
+                      const current = getStepIndex(req.status);
+                      const done = i <= current;
+                      return (
                         <div
-                          className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
-                            done ? "bg-blue-600" : "bg-slate-200"
-                          }`}
+                          key={step}
+                          className="flex items-center flex-1 last:flex-none"
                         >
-                          {done ? (
-                            <CheckCircle2 size={14} className="text-white" />
-                          ) : (
-                            <Clock size={12} className="text-slate-400" />
-                          )}
-                        </div>
-                        <div className="flex-1 mx-2 last:hidden">
                           <div
-                            className={`h-1 rounded-full transition-colors ${done && i < current ? "bg-blue-600" : "bg-slate-200"}`}
-                          />
+                            className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors font-semibold text-sm ${
+                              done
+                                ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white"
+                                : "bg-slate-100 text-slate-400"
+                            }`}
+                          >
+                            {i + 1}
+                          </div>
+                          <div className="flex-1 mx-2 last:hidden">
+                            <div
+                              className={`h-2 rounded-full transition-colors ${done && i < current ? "bg-gradient-to-r from-blue-500 to-blue-400" : "bg-slate-200"}`}
+                            />
+                          </div>
                         </div>
-                        {i === statusSteps.length - 1 && (
-                          <span className="text-xs text-slate-500 ml-1 capitalize">
-                            {step}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="flex justify-between text-xs text-slate-400 mt-1 px-0.5">
-                  <span>Pending</span>
-                  <span>Scheduled</span>
-                  <span>Completed</span>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-between text-xs font-semibold text-slate-500 mt-2 px-1">
+                    <span>Pending</span>
+                    <span>Scheduled</span>
+                    <span>Completed</span>
+                  </div>
                 </div>
 
-                <p className="text-xs text-slate-400 mt-3 flex items-center gap-1">
-                  <RefreshCw size={11} />
+                <p className="text-xs text-slate-400 mt-4 flex items-center gap-1">
+                  <RefreshCw size={12} />
                   Submitted{" "}
                   {formatDistanceToNow(new Date(req.$createdAt), {
                     addSuffix: true,

@@ -9,6 +9,7 @@ import {
   BookOpen,
   Bot,
   Mail,
+  MessageSquare,
 } from "lucide-react";
 
 const mobileNavItems = [
@@ -16,6 +17,7 @@ const mobileNavItems = [
   { href: "/report", label: "Report", icon: AlertTriangle },
   { href: "/requests", label: "Pickup", icon: Truck },
   { href: "/hotspots", label: "Hotspots", icon: MapPin },
+  { href: "/posts", label: "Feed", icon: MessageSquare },
   { href: "/education", label: "Learn", icon: BookOpen },
   { href: "/ai", label: "AI", icon: Bot },
   { href: "/contact", label: "Contact", icon: Mail },

@@ -26,6 +26,7 @@ export const COLLECTIONS = {
   PRODUCTS: process.env.NEXT_PUBLIC_COLLECTION_PRODUCTS || "products",
   ARTICLES: process.env.NEXT_PUBLIC_COLLECTION_ARTICLES || "articles",
   MESSAGES: process.env.NEXT_PUBLIC_COLLECTION_MESSAGES || "messages",
+  POSTS: process.env.NEXT_PUBLIC_COLLECTION_POSTS || "posts",
 };
 
 export default client;
