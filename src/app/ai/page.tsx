@@ -182,12 +182,14 @@ export default function AIPage() {
     setLoading(true);
 
     try {
-      const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      if (!API_KEY || API_KEY ===  "AIzaSyDytd3uqvDsNvMXr4EhmIx2sx9DiE5yDCc") {
-        throw new Error(
-          "API key not configured. Please set NEXT_PUBLIC_GEMINI_API_KEY in .env.local",
-        );
-      }
+      const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY?.trim();
+
+if (!API_KEY) {
+  throw new Error(
+    "API key not configured. Set NEXT_PUBLIC_GEMINI_API_KEY in .env.local and restart the server."
+  );
+}
+      console.log("API KEY VALUE:", API_KEY);
 
       // Build full conversation history
       const history = messages
