@@ -92,6 +92,17 @@ export default function DashboardPage() {
               Here's what's happening in your GoHigher account
             </p>
           </div>
+          <div>
+            <h1
+              className="text-2xl font-bold text-slate-900"
+              style={{ fontFamily: "Inter, sans-serif" }}
+            >
+              THEME OF THE YEAR: PLASTIC WASTE MANAGEMENT IN KAMPALA, UGANDA
+            </h1>
+            <p className="text-slate-500 text-sm mt-1">
+              App made by: Youth With A Purpose Club KMSS{" "}
+            </p>
+          </div>
         </div>
 
         {/* Impact banner */}
