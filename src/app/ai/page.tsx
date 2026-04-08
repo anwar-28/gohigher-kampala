@@ -288,58 +288,53 @@ export default function AIPage() {
         /* ── Reset & base ───────────────────────────── */
         .gh-root *, .gh-root *::before, .gh-root *::after { box-sizing: border-box; }
         .gh-root {
-          --forest:  #0a3d2e;
-          --forest2: #1a5e45;
-          --leaf:    #22c55e;
-          --lime:    #4ade80;
-          --mist:    #f0fdf4;
-          --gold:    #f59e0b;
-          --amber:   #f97316;
-          --sky:     #0ea5e9;
-          --cream:   #fafaf9;
-          --td:      #0f172a;
-          --tm:      #334155;
-          --tl:      #64748b;
-          --border:  rgba(34,197,94,.08);
-          --shad:    0 10px 40px rgba(10,61,46,.08);
+          --forest:  #003d82;
+          --forest2: #0052b4;
+          --leaf:    #0ea5e9;
+          --lime:    #38bdf8;
+          --mist:    #f0f9ff;
+          --gold:    #3b82f6;
+          --amber:   #2563eb;
+          --sky:     #0284c7;
+          --cream:   #f8fbff;
+          --td:      #0c2344;
+          --tm:      #1e40af;
+          --tl:      #3b82f6;
+          --border:  rgba(14,165,233,.08);
+          --shad:    0 10px 40px rgba(0,61,130,.06);
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'DM Sans', sans-serif;
           height: calc(100vh - 4rem);
           display: flex;
           overflow: hidden;
           position: relative;
-          background: linear-gradient(135deg, var(--cream) 0%, #f5f3ff 100%);
+          background: linear-gradient(135deg, #f0f9ff 0%, #eff6ff 100%);
           color: var(--td);
         }
-        /* ── Animated orbs ──────────────────────────── */
+        /* ── Subtle background accent ──────────────────────────– */
         .gh-orb {
-          position: absolute;
+          position: fixed;
           border-radius: 50%;
-          filter: blur(100px);
-          opacity: .12;
+          filter: blur(120px);
+          opacity: .08;
           pointer-events: none;
-          animation: gh-float 8s ease-in-out infinite;
-          mix-blend-mode: screen;
+          mix-blend-mode: multiply;
         }
-        .gh-orb-1 { width:480px;height:480px;background:radial-gradient(circle,#22c55e,#0a3d2e);top:-150px;right:-100px; }
-        .gh-orb-2 { width:360px;height:360px;background:radial-gradient(circle,#f59e0b,#f97316);bottom:-100px;left:-80px;animation-delay:-4s; }
-        .gh-orb-3 { width:260px;height:260px;background:radial-gradient(circle,#0ea5e9,#0285cc);top:45%;left:40%;animation-delay:-6s; }
-        @keyframes gh-float {
-          0%,100%{transform:translateY(0) scale(1);}
-          50%{transform:translateY(-28px) scale(1.05);}
-        }
+        .gh-orb-1 { width:400px;height:400px;background:#0ea5e9;top:-100px;right:-80px; }
+        .gh-orb-2 { width:300px;height:300px;background:#3b82f6;bottom:-60px;left:-60px; }
+        .gh-orb-3 { display: none; }
         /* ── Grid texture ───────────────────────────── */
         .gh-grid {
-          position:absolute;inset:0;pointer-events:none;z-index:0;
+          position:fixed;inset:0;pointer-events:none;z-index:0;
           background-image:
-            linear-gradient(rgba(34,197,94,.02) 1px,transparent 1px),
-            linear-gradient(90deg,rgba(34,197,94,.02) 1px,transparent 1px);
-          background-size:40px 40px;
+            linear-gradient(rgba(14,165,233,.01) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(14,165,233,.01) 1px,transparent 1px);
+          background-size:50px 50px;
         }
         /* ── Sidebar ────────────────────────────────── */
         .gh-sidebar {
           width: 280px;
           flex-shrink: 0;
-          background: linear-gradient(180deg, var(--forest) 0%, var(--forest2) 100%);
+          background: linear-gradient(180deg, #003d82 0%, #0052b4 100%);
           display: flex;
           flex-direction: column;
           padding: 28px 20px;
@@ -359,17 +354,17 @@ export default function AIPage() {
         .gh-sidebar::before {
           content:'';position:absolute;top:-60px;right:-40px;
           width:200px;height:200px;
-          background:radial-gradient(circle,rgba(74,222,128,.08),transparent 70%);
+          background:radial-gradient(circle,rgba(14,165,233,.08),transparent 70%);
           border-radius:50%;pointer-events:none;
         }
         /* ── Logo ───────────────────────────────────── */
         .gh-logo { display:flex;align-items:center;gap:12px;margin-bottom:32px; }
         .gh-logo-icon {
           width:44px;height:44px;
-          background:linear-gradient(135deg,var(--lime),var(--leaf));
+          background:linear-gradient(135deg,#38bdf8,#0ea5e9);
           border-radius:14px;display:flex;align-items:center;justify-content:center;
           font-size:22px;flex-shrink:0;
-          box-shadow:0 6px 20px rgba(34,197,94,.35);
+          box-shadow:0 6px 20px rgba(14,165,233,.25);
         }
         .gh-logo-name {
           font-family:inherit;font-weight:700;
@@ -383,9 +378,9 @@ export default function AIPage() {
           border-radius:12px;padding:10px 14px;margin-bottom:28px;
         }
         .gh-dot {
-          width:8px;height:8px;background:var(--lime);border-radius:50%;
+          width:8px;height:8px;background:#0ea5e9;border-radius:50%;
           animation:gh-pulse 2s ease-in-out infinite;
-          box-shadow:0 0 10px rgba(34,197,94,.6);
+          box-shadow:0 0 10px rgba(14,165,233,.6);
         }
         @keyframes gh-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.6;transform:scale(.85);}}
         .gh-status-txt { color:rgba(255,255,255,.75);font-size:12px;font-weight:500;letter-spacing:.3px; }
@@ -408,7 +403,7 @@ export default function AIPage() {
           font-weight:500;
         }
         .gh-qbtn:hover {
-          background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.25);
+          background:rgba(14,165,233,.15);border-color:rgba(14,165,233,.3);
           color:#fff;transform:translateX(4px);
         }
         .gh-qbtn:active{transform:translateX(2px);opacity:.85;}
@@ -420,7 +415,7 @@ export default function AIPage() {
           border-radius:11px;padding:12px;text-align:center;
         }
         .gh-stat-num {
-          font-weight:700;font-size:16px;color:var(--lime);letter-spacing:-.5px;
+          font-weight:700;font-size:16px;color:#38bdf8;letter-spacing:-.5px;
         }
         .gh-stat-lbl { font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;line-height:1.4;white-space:pre-line; }
         /* ── Chat panel ─────────────────────────────── */
@@ -465,14 +460,14 @@ export default function AIPage() {
           color:var(--td);
           transition:all .2s;
         }
-        .gh-menu-btn:hover { background:#fff;border-color:rgba(34,197,94,.2); }
+        .gh-menu-btn:hover { background:#fff;border-color:rgba(14,165,233,.2); }
         /* ── Messages ───────────────────────────────── */
         .gh-msgs {
           flex:1;overflow-y:auto;padding-right:6px;
           display:flex;flex-direction:column;gap:16px;margin-bottom:16px;
         }
         .gh-msgs::-webkit-scrollbar{width:6px;}
-        .gh-msgs::-webkit-scrollbar-thumb{background:rgba(34,197,94,.1);border-radius:3px;}
+        .gh-msgs::-webkit-scrollbar-thumb{background:rgba(14,165,233,.1);border-radius:3px;}
         .gh-msgs::-webkit-scrollbar-track{background:transparent;}
         .gh-msg {
           display:flex;gap:12px;
@@ -487,8 +482,8 @@ export default function AIPage() {
           font-weight:700;
         }
         .gh-avatar.ai {
-          background:linear-gradient(135deg,var(--forest),var(--leaf));
-          box-shadow:0 4px 14px rgba(10,61,46,.24);
+          background:linear-gradient(135deg,#003d82,#0ea5e9);
+          box-shadow:0 4px 14px rgba(0,61,130,.24);
         }
         .gh-avatar.usr {
           background:linear-gradient(135deg,#f59e0b,#f97316);
@@ -501,15 +496,15 @@ export default function AIPage() {
         }
         .gh-bubble.ai {
           background:#fff;border:1.5px solid var(--border);
-          border-top-left-radius:5px;color:var(--tm);
-          box-shadow:0 4px 16px rgba(10,61,46,.06);
+          border-top-left-radius:5px;color:#000000;
+          box-shadow:0 4px 16px rgba(0,61,130,.06);
         }
         .gh-bubble.usr {
-          background:linear-gradient(135deg,var(--forest),var(--forest2));
+          background:linear-gradient(135deg,#003d82,#0052b4);
           border-top-right-radius:5px;color:#fff;
-          box-shadow:0 4px 16px rgba(10,61,46,.16);
+          box-shadow:0 4px 16px rgba(0,61,130,.16);
         }
-        .gh-meta { font-size:11px;color:var(--tl);margin-top:6px;opacity:.5;font-weight:500; }
+        .gh-meta { font-size:11px;color:#1a1a1a;margin-top:6px;opacity:.6;font-weight:500; }
         .gh-bubble.usr + .gh-meta { color:rgba(255,255,255,.4); }
         /* ── Topic tags ─────────────────────────────── */
         .gh-tag {
@@ -517,23 +512,23 @@ export default function AIPage() {
           letter-spacing:.06em;text-transform:uppercase;
           padding:4px 10px;border-radius:7px;margin-bottom:9px;
         }
-        .tag-climate{background:rgba(14,165,233,.11);color:#0284c7;}
-        .tag-water  {background:rgba(14,165,233,.12);color:#00a4ef;}
-        .tag-waste  {background:rgba(34,197,94,.12);color:var(--forest);}
-        .tag-action {background:rgba(245,158,11,.13);color:#ea580c;}
+        .tag-climate{background:rgba(14,165,233,.11);color:#000000;}
+        .tag-water  {background:rgba(59,131,246,.12);color:#000000;}
+        .tag-waste  {background:rgba(14,165,233,.12);color:#000000;}
+        .tag-action {background:rgba(3,102,214,.13);color:#000000;}
         /* ── Markdown render ────────────────────────── */
-        .gh-bubble.ai strong { color:var(--forest);font-weight:700; }
-        .gh-h2 { font-weight:700;font-size:14px;color:var(--forest);margin:13px 0 5px; }
-        .gh-h3 { font-weight:600;font-size:13px;color:var(--forest2);margin:11px 0 4px; }
+        .gh-bubble.ai strong { color:#000000;font-weight:700; }
+        .gh-h2 { font-weight:700;font-size:14px;color:#000000;margin:13px 0 5px; }
+        .gh-h3 { font-weight:600;font-size:13px;color:#1a1a1a;margin:11px 0 4px; }
         .gh-li { display:flex;gap:8px;margin:4px 0; }
-        .gh-bullet { color:var(--leaf);flex-shrink:0;margin-top:2px;font-weight:600; }
-        .gh-num    { color:var(--leaf);font-weight:700;flex-shrink:0; }
+        .gh-bullet { color:#0ea5e9;flex-shrink:0;margin-top:2px;font-weight:600; }
+        .gh-num    { color:#0ea5e9;font-weight:700;flex-shrink:0; }
         /* ── Thinking indicator ─────────────────────── */
         .gh-thinking { display:flex;gap:6px;align-items:center;padding:14px 16px; }
         .gh-tdot {
-          width:8px;height:8px;background:var(--leaf);border-radius:50%;
+          width:8px;height:8px;background:#0ea5e9;border-radius:50%;
           animation:gh-bounce 1.3s ease-in-out infinite;
-          box-shadow:0 0 8px rgba(34,197,94,.4);
+          box-shadow:0 0 8px rgba(14,165,233,.4);
         }
         .gh-tdot:nth-child(2){animation-delay:.2s;}
         .gh-tdot:nth-child(3){animation-delay:.4s;}
@@ -544,12 +539,12 @@ export default function AIPage() {
           background:#fff;border:1.5px solid var(--border);
           border-radius:18px;padding:5px 5px 5px 18px;
           display:flex;align-items:flex-end;gap:10px;
-          box-shadow:0 8px 32px rgba(10,61,46,.08);
+          box-shadow:0 8px 32px rgba(0,61,130,.08);
           transition:all .2s cubic-bezier(.22,1,.36,1);
         }
         .gh-input-card:focus-within {
-          border-color:var(--leaf);
-          box-shadow:0 8px 32px rgba(34,197,94,.12);
+          border-color:#0ea5e9;
+          box-shadow:0 8px 32px rgba(14,165,233,.12);
           transform:translateY(-1px);
         }
         .gh-textarea {
@@ -562,26 +557,26 @@ export default function AIPage() {
         .gh-textarea::placeholder{color:var(--tl);opacity:.55;}
         .gh-send {
           width:44px;height:44px;flex-shrink:0;
-          background:linear-gradient(135deg,var(--leaf),var(--forest));
+          background:linear-gradient(135deg,#0ea5e9,#0052b4);
           border:none;border-radius:13px;color:#fff;cursor:pointer;
           display:flex;align-items:center;justify-content:center;font-size:18px;
           transition:all .25s cubic-bezier(.22,1,.36,1);
-          box-shadow:0 4px 16px rgba(34,197,94,.3);
+          box-shadow:0 4px 16px rgba(14,165,233,.3);
           margin-bottom:2px;
           font-weight:600;
         }
-        .gh-send:hover:not(:disabled){transform:scale(1.08);box-shadow:0 6px 20px rgba(34,197,94,.4);}
+        .gh-send:hover:not(:disabled){transform:scale(1.08);box-shadow:0 6px 20px rgba(14,165,233,.4);}
         .gh-send:active:not(:disabled){transform:scale(.96);}
         .gh-send:disabled{opacity:.34;cursor:not-allowed;}
         .gh-hint { font-size:11px;color:var(--tl);text-align:center;margin-top:9px;opacity:.5;font-weight:500; }
         /* ── Welcome chips ──────────────────────────── */
         .gh-chips { display:flex;flex-wrap:wrap;gap:7px;margin-top:10px; }
         .gh-chip {
-          background:var(--mist);border:1.5px solid rgba(34,197,94,.14);
+          background:var(--mist);border:1.5px solid rgba(14,165,233,.14);
           border-radius:9px;padding:4px 11px;font-size:12px;
           color:var(--forest);font-weight:600;transition:all .2s;
         }
-        .gh-chip:hover { background:#fff;border-color:rgba(34,197,94,.3); }
+        .gh-chip:hover { background:#fff;border-color:rgba(14,165,233,.3); }
         /* ── Responsive ─────────────────────────────── */
         @media(max-width:768px){
           .gh-root { flex-direction: column; }
