@@ -129,10 +129,10 @@ export default function EducationPage() {
       <div className="animate-in">
         {/* Article reader modal */}
         {selected && (
-          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-6 backdrop-blur-sm">
-            <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8">
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-3 sm:p-6 backdrop-blur-sm">
+            <div className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[90vh] sm:max-h-[80vh] overflow-y-auto p-4 sm:p-8">
               {selected.image && (
-                <div className="mb-6 rounded-xl overflow-hidden h-64 bg-slate-100">
+                <div className="mb-4 sm:mb-6 rounded-lg sm:rounded-xl overflow-hidden h-40 sm:h-64 bg-slate-100">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={getImageUrl(selected.image)}
@@ -141,21 +141,22 @@ export default function EducationPage() {
                   />
                 </div>
               )}
-              <div className="flex items-start justify-between mb-6">
+              <div className="flex items-start justify-between gap-3 mb-4 sm:mb-6">
                 <h2
-                  className="text-2xl font-bold text-slate-900 pr-4"
+                  className="text-xl sm:text-2xl font-bold text-slate-900 flex-1 leading-snug"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   {selected.title}
                 </h2>
                 <button
                   onClick={() => setSelected(null)}
-                  className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center hover:bg-slate-200 flex-shrink-0"
+                  className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center hover:bg-slate-200 flex-shrink-0 transition-colors"
+                  title="Close"
                 >
                   <X size={16} />
                 </button>
               </div>
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-slate-200">
                 <Avatar
                   src={
                     selected.author_image
@@ -163,23 +164,25 @@ export default function EducationPage() {
                       : undefined
                   }
                   name={selected.author_name || "Author"}
-                  size="md"
+                  size="sm"
                 />
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   {selected.author_name && (
-                    <p className="font-semibold text-slate-800 text-sm">
+                    <p className="font-semibold text-slate-800 text-xs sm:text-sm truncate">
                       {selected.author_name}
                     </p>
                   )}
                   <p className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
-                    <Clock size={11} />
-                    {formatDistanceToNow(new Date(selected.$createdAt), {
-                      addSuffix: true,
-                    })}
+                    <Clock size={10} />
+                    <span className="truncate">
+                      {formatDistanceToNow(new Date(selected.$createdAt), {
+                        addSuffix: true,
+                      })}
+                    </span>
                   </p>
                 </div>
               </div>
-              <div className="prose prose-sm text-slate-700 leading-relaxed whitespace-pre-wrap">
+              <div className="text-slate-700 leading-relaxed whitespace-pre-wrap text-sm">
                 {selected.content}
               </div>
             </div>
@@ -190,14 +193,12 @@ export default function EducationPage() {
           title="Environmental Education"
           subtitle="Learn about sustainability and eco-friendly practices"
           action={
-            canPost && (
-              <Button
-                onClick={() => setShowForm(!showForm)}
-                variant={showForm ? "secondary" : "primary"}
-              >
-                <Plus size={16} /> {showForm ? "Cancel" : "Write Article"}
-              </Button>
-            )
+            <Button
+              onClick={() => setShowForm(!showForm)}
+              variant={showForm ? "secondary" : "primary"}
+            >
+              <Plus size={16} /> {showForm ? "Cancel" : "Write Article"}
+            </Button>
           }
         />
 
@@ -212,7 +213,7 @@ export default function EducationPage() {
         </div>
 
         {/* Write article */}
-        {showForm && canPost && (
+        {showForm && (
           <Card className="p-6 mb-8 border-blue-100 animate-in">
             <h3
               className="font-bold text-slate-800 mb-5"
@@ -328,7 +329,7 @@ export default function EducationPage() {
                       />
                     </div>
                   )}
-                  
+
                   {/* Content Section */}
                   <div className="flex-1 flex flex-col justify-between p-6 sm:p-6">
                     {/* Header with Icon */}
@@ -346,7 +347,7 @@ export default function EducationPage() {
                           </h3>
                         </div>
                       </div>
-                      
+
                       {/* Preview Text */}
                       <p className="text-sm text-slate-600 leading-relaxed line-clamp-2 mb-4">
                         {article.content.slice(0, 200)}...

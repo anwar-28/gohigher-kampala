@@ -584,13 +584,17 @@ export default function AIPage() {
         .gh-chip:hover { background:#fff;border-color:rgba(34,197,94,.3); }
         /* ── Responsive ─────────────────────────────── */
         @media(max-width:768px){
-          .gh-sidebar { position:absolute;height:100%;width:80%;max-width:300px;z-index:20; }
-          .gh-sidebar.closed { transform:translateX(-110%); }
+          .gh-root { flex-direction: column; }
+          .gh-sidebar { position:fixed;height:100%;width:75%;max-width:280px;z-index:30;bottom:0;left:0;top:0; }
+          .gh-sidebar.closed { transform:translateX(-100%); }
           .gh-menu-btn { display:flex; }
           .gh-gemini-badge span { display:none; }
-          .gh-chat { padding:16px 18px; }
+          .gh-chat { padding:16px 14px;height:100%; }
+          .gh-msgs { margin-bottom:12px; }
           .gh-bubble { max-width:85%; }
           .gh-chat-title { font-size:18px; }
+          .gh-chat-hdr { margin-bottom:12px; }
+          .gh-input-wrap { padding:0 2px; }
         }
       `}</style>
 
