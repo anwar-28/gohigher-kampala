@@ -168,12 +168,6 @@ export default function LoginPage() {
               </Link>
             </p>
           </div>
-
-          {/* Demo credentials hint */}
-          <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-2xl text-xs text-yellow-800">
-            <strong>Demo:</strong> Configure Appwrite credentials in{" "}
-            <code>.env.local</code> to get started.
-          </div>
         </div>
       </div>
     </div>
