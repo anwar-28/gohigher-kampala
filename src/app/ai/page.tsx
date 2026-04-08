@@ -189,7 +189,6 @@ if (!API_KEY) {
     "API key not configured. Set NEXT_PUBLIC_GEMINI_API_KEY in .env.local and restart the server."
   );
 }
-      console.log("API KEY VALUE:", API_KEY);
 
       // Build full conversation history
       const history = messages
