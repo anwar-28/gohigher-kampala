@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_fAJvHAC8qIAE84pmpuvgPpYuD5XG",
+  "orgId": "team_TmDifI1J63ddBqjKFuAb1B1n",
+  "projectName": "gohigher",
+  "settings": {
+    "createdAt": 1774980305368,
+    "framework": "nextjs",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}

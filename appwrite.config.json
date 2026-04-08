@@ -1,0 +1,200 @@
+{
+  "projectId": "69c8154d001aca67f393",
+  "endpoint": "https://fra.cloud.appwrite.io/v1",
+
+  "tablesDB": [
+    {
+      "$id": "gohigher-db",
+      "name": "GoHigher Database",
+      "enabled": true
+    }
+  ],
+
+  "tables": [
+    {
+      "$id": "users",
+      "databaseId": "gohigher-db",
+      "name": "Users",
+      "enabled": true,
+      "rowSecurity": false,
+      "$permissions": [
+        "create(\"any\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "columns": [
+        { "key": "name", "type": "varchar", "size": 100, "required": true },
+        { "key": "email", "type": "varchar", "size": 200, "required": true },
+        { "key": "role", "type": "varchar", "size": 20, "required": true },
+        {
+          "key": "profile_picture",
+          "type": "varchar",
+          "size": 100,
+          "required": false
+        },
+        {
+          "key": "contact_number",
+          "type": "varchar",
+          "size": 20,
+          "required": false
+        }
+      ],
+      "indexes": []
+    },
+
+    {
+      "$id": "reports",
+      "databaseId": "gohigher-db",
+      "name": "Reports",
+      "enabled": true,
+      "rowSecurity": false,
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"any\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "columns": [
+        { "key": "user_id", "type": "varchar", "size": 50, "required": true },
+        {
+          "key": "description",
+          "type": "varchar",
+          "size": 1000,
+          "required": true
+        },
+        { "key": "image", "type": "varchar", "size": 100, "required": false },
+        { "key": "location", "type": "varchar", "size": 200, "required": true },
+        { "key": "status", "type": "varchar", "size": 20, "required": true }
+      ],
+      "indexes": []
+    },
+
+    {
+      "$id": "garbage_requests",
+      "databaseId": "gohigher-db",
+      "name": "GarbageRequests",
+      "enabled": true,
+      "rowSecurity": false,
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"users\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "columns": [
+        { "key": "user_id", "type": "varchar", "size": 50, "required": true },
+        {
+          "key": "waste_type",
+          "type": "varchar",
+          "size": 100,
+          "required": true
+        },
+        { "key": "date", "type": "varchar", "size": 30, "required": true },
+        { "key": "status", "type": "varchar", "size": 20, "required": true }
+      ],
+      "indexes": []
+    },
+
+    {
+      "$id": "hotspots",
+      "databaseId": "gohigher-db",
+      "name": "Hotspots",
+      "enabled": true,
+      "rowSecurity": false,
+      "$permissions": ["read(\"any\")"],
+      "columns": [
+        { "key": "location", "type": "varchar", "size": 200, "required": true },
+        { "key": "severity_level", "type": "integer", "required": true },
+        { "key": "report_count", "type": "integer", "required": true }
+      ],
+      "indexes": []
+    },
+
+    {
+      "$id": "products",
+      "databaseId": "gohigher-db",
+      "name": "Products",
+      "enabled": true,
+      "rowSecurity": false,
+      "$permissions": [
+        "create(\"users\")",
+        "read(\"any\")",
+        "update(\"users\")",
+        "delete(\"users\")"
+      ],
+      "columns": [
+        { "key": "vendor_id", "type": "varchar", "size": 50, "required": true },
+        { "key": "name", "type": "varchar", "size": 200, "required": true },
+        {
+          "key": "description",
+          "type": "varchar",
+          "size": 1000,
+          "required": true
+        },
+        { "key": "price", "type": "double", "required": true },
+        { "key": "image", "type": "varchar", "size": 100, "required": false },
+        {
+          "key": "vendor_name",
+          "type": "varchar",
+          "size": 100,
+          "required": false
+        },
+        {
+          "key": "vendor_contact",
+          "type": "varchar",
+          "size": 20,
+          "required": false
+        }
+      ],
+      "indexes": []
+    },
+
+    {
+      "$id": "articles",
+      "databaseId": "gohigher-db",
+      "name": "Articles",
+      "enabled": true,
+      "rowSecurity": false,
+      "$permissions": ["read(\"any\")", "create(\"users\")"],
+      "columns": [
+        { "key": "author_id", "type": "varchar", "size": 50, "required": true },
+        { "key": "title", "type": "varchar", "size": 300, "required": true },
+        {
+          "key": "content",
+          "type": "varchar",
+          "size": 10000,
+          "required": true
+        },
+        {
+          "key": "author_name",
+          "type": "varchar",
+          "size": 100,
+          "required": false
+        },
+        { "key": "image", "type": "varchar", "size": 100, "required": false }
+      ],
+      "indexes": []
+    },
+
+    {
+      "$id": "messages",
+      "databaseId": "gohigher-db",
+      "name": "Messages",
+      "enabled": true,
+      "rowSecurity": false,
+      "$permissions": ["create(\"users\")", "read(\"users\")"],
+      "columns": [
+        { "key": "user_id", "type": "varchar", "size": 50, "required": true },
+        { "key": "message", "type": "varchar", "size": 5000, "required": true },
+        {
+          "key": "response",
+          "type": "varchar",
+          "size": 5000,
+          "required": false
+        }
+      ],
+      "indexes": []
+    }
+  ]
+}
