@@ -91,6 +91,7 @@
           "required": true
         },
         { "key": "date", "type": "varchar", "size": 30, "required": true },
+        { "key": "location", "type": "varchar", "size": 200, "required": true },
         { "key": "status", "type": "varchar", "size": 20, "required": true }
       ],
       "indexes": []
@@ -191,6 +192,40 @@
           "key": "response",
           "type": "varchar",
           "size": 5000,
+          "required": false
+        }
+      ],
+      "indexes": []
+    },
+
+    {
+      "$id": "posts",
+      "databaseId": "gohigher-db",
+      "name": "Posts",
+      "enabled": true,
+      "rowSecurity": false,
+      "$permissions": ["read(\"any\")", "create(\"users\")"],
+      "columns": [
+        { "key": "author_id", "type": "varchar", "size": 50, "required": true },
+        {
+          "key": "author_name",
+          "type": "varchar",
+          "size": 100,
+          "required": false
+        },
+        {
+          "key": "author_avatar",
+          "type": "varchar",
+          "size": 100,
+          "required": false
+        },
+        { "key": "text", "type": "varchar", "size": 5000, "required": false },
+        { "key": "image", "type": "varchar", "size": 100, "required": false },
+        { "key": "likes", "type": "integer", "required": true },
+        {
+          "key": "liked_by",
+          "type": "varchar",
+          "size": 10000,
           "required": false
         }
       ],
