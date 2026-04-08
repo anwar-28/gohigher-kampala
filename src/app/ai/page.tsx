@@ -183,7 +183,7 @@ export default function AIPage() {
 
     try {
       const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      if (!API_KEY || API_KEY ===  "") {
+      if (!API_KEY || API_KEY ===  "AIzaSyDytd3uqvDsNvMXr4EhmIx2sx9DiE5yDCc") {
         throw new Error(
           "API key not configured. Please set NEXT_PUBLIC_GEMINI_API_KEY in .env.local",
         );
